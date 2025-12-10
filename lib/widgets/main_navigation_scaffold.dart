@@ -28,7 +28,7 @@ class _MainNavigationScaffoldState extends State<MainNavigationScaffold> {
       body: IndexedStack(index: _currentIndex, children: _screens),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: AppTheme.backgroundDark.withOpacity(0.9),
+          color: AppTheme.backgroundDark.withValues(alpha: 0.9),
           border: const Border(top: BorderSide(color: Color(0xFF242D47))),
         ),
         child: BottomNavigationBar(

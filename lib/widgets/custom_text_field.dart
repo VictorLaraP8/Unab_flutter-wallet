@@ -39,7 +39,7 @@ class CustomTextField extends StatelessWidget {
           decoration: InputDecoration(
             hintText: placeholder,
             hintStyle: TextStyle(
-              color: AppTheme.textSecondary.withOpacity(0.7),
+              color: AppTheme.textSecondary.withValues(alpha: 0.7),
             ),
             filled: true,
             fillColor: AppTheme.surfaceDark, // Using surface color for input bg
