@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Configuración de la App</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#2b6cee",
+              "background-light": "#f6f6f8",
+              "background-dark": "#101622",
+            },
+            fontFamily: {
+              "display": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display bg-background-light dark:bg-background-dark">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden">
+<!-- Top App Bar -->
+<div class="flex items-center bg-background-light dark:bg-background-dark p-4 pb-2 justify-between sticky top-0 z-10">
+<button class="text-white flex size-10 items-center justify-center -ml-2">
+<span class="material-symbols-outlined text-2xl text-slate-800 dark:text-slate-200">arrow_back_ios_new</span>
+</button>
+<h1 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Configuración</h1>
+<div class="flex size-10 shrink-0 items-center"></div>
+</div>
+<!-- Profile Header -->
+<div class="flex p-4 @container">
+<div class="flex w-full flex-col gap-4 @[520px]:flex-row @[520px]:justify-between @[520px]:items-center">
+<div class="flex gap-4 items-center">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-20 w-20" data-alt="Semi-realistic avatar of Ana García" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBhdTRgAGYMteQcEX-g2qCNLRRCjZAMtJNwy0JZB6XQxQl7Nt6ZSjxQbxp-Fe8xmA9NiDPnHu6psV50e4yz8wUXO-wsisShQuqXPGZhJL-jfUwQ4eGD-orngULvGquyDWadyi3NPFHLACCJbJws5dPUOTBFZlAVnkICEkMr7HX7oMQC4ndlxTwAX8WekQLG0QTcYg3b-3EgXcqjoA_TLT0AteCZrUOvx9atnqKyoagHXnpJQjNd6zSJJjqeaHJ1uO05e4jba1GQr21S");'></div>
+<div class="flex flex-col justify-center">
+<p class="text-slate-900 dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em]">Ana García</p>
+<p class="text-slate-500 dark:text-slate-400 text-base font-normal leading-normal">ana.garcia@email.com</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Settings Section: Cuenta -->
+<div class="px-4 pt-6 pb-2">
+<h3 class="text-slate-500 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider">Cuenta</h3>
+</div>
+<div class="flex flex-col mx-4 bg-slate-100 dark:bg-slate-900/50 rounded-lg overflow-hidden">
+<a class="flex items-center gap-4 px-4 min-h-14 justify-between hover:bg-slate-200/60 dark:hover:bg-slate-800/60 transition-colors duration-150" href="#">
+<div class="flex items-center gap-4">
+<div class="text-primary flex items-center justify-center shrink-0 size-10">
+<span class="material-symbols-outlined">person</span>
+</div>
+<p class="text-slate-800 dark:text-slate-200 text-base font-medium leading-normal flex-1 truncate">Editar Perfil</p>
+</div>
+<div class="shrink-0">
+<div class="text-slate-400 dark:text-slate-500 flex size-7 items-center justify-center">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</div>
+</div>
+</a>
+<div class="h-px bg-slate-200 dark:bg-slate-800 ml-16"></div>
+<a class="flex items-center gap-4 px-4 min-h-14 justify-between hover:bg-slate-200/60 dark:hover:bg-slate-800/60 transition-colors duration-150" href="#">
+<div class="flex items-center gap-4">
+<div class="text-primary flex items-center justify-center shrink-0 size-10">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<p class="text-slate-800 dark:text-slate-200 text-base font-medium leading-normal flex-1 truncate">Moneda Predeterminada</p>
+</div>
+<div class="shrink-0">
+<div class="text-slate-400 dark:text-slate-500 flex size-7 items-center justify-center">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</div>
+</div>
+</a>
+<div class="h-px bg-slate-200 dark:bg-slate-800 ml-16"></div>
+<a class="flex items-center gap-4 px-4 min-h-14 justify-between hover:bg-slate-200/60 dark:hover:bg-slate-800/60 transition-colors duration-150" href="#">
+<div class="flex items-center gap-4">
+<div class="text-primary flex items-center justify-center shrink-0 size-10">
+<span class="material-symbols-outlined">workspace_premium</span>
+</div>
+<p class="text-slate-800 dark:text-slate-200 text-base font-medium leading-normal flex-1 truncate">Suscripción</p>
+</div>
+<div class="shrink-0">
+<div class="text-slate-400 dark:text-slate-500 flex size-7 items-center justify-center">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</div>
+</div>
+</a>
+</div>
+<!-- Settings Section: Preferencias -->
+<div class="px-4 pt-6 pb-2">
+<h3 class="text-slate-500 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider">Preferencias</h3>
+</div>
+<div class="flex flex-col mx-4 bg-slate-100 dark:bg-slate-900/50 rounded-lg overflow-hidden">
+<div class="flex items-center gap-4 px-4 min-h-14 justify-between">
+<div class="flex items-center gap-4">
+<div class="text-primary flex items-center justify-center shrink-0 size-10">
+<span class="material-symbols-outlined">notifications</span>
+</div>
+<p class="text-slate-800 dark:text-slate-200 text-base font-medium leading-normal flex-1 truncate">Notificaciones</p>
+</div>
+<div class="shrink-0">
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer checked:right-0 checked:border-primary peer" id="toggle-notifications" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-slate-300 dark:bg-slate-700 cursor-pointer peer-checked:bg-primary" for="toggle-notifications"></label>
+</div>
+</div>
+</div>
+<div class="h-px bg-slate-200 dark:bg-slate-800 ml-16"></div>
+<a class="flex items-center gap-4 px-4 min-h-14 justify-between hover:bg-slate-200/60 dark:hover:bg-slate-800/60 transition-colors duration-150" href="#">
+<div class="flex items-center gap-4">
+<div class="text-primary flex items-center justify-center shrink-0 size-10">
+<span class="material-symbols-outlined">contrast</span>
+</div>
+<p class="text-slate-800 dark:text-slate-200 text-base font-medium leading-normal flex-1 truncate">Apariencia</p>
+</div>
+<div class="shrink-0">
+<div class="text-slate-400 dark:text-slate-500 flex size-7 items-center justify-center">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</div>
+</div>
+</a>
+<div class="h-px bg-slate-200 dark:bg-slate-800 ml-16"></div>
+<a class="flex items-center gap-4 px-4 min-h-14 justify-between hover:bg-slate-200/60 dark:hover:bg-slate-800/60 transition-colors duration-150" href="#">
+<div class="flex items-center gap-4">
+<div class="text-primary flex items-center justify-center shrink-0 size-10">
+<span class="material-symbols-outlined">language</span>
+</div>
+<p class="text-slate-800 dark:text-slate-200 text-base font-medium leading-normal flex-1 truncate">Idioma</p>
+</div>
+<div class="shrink-0">
+<div class="text-slate-400 dark:text-slate-500 flex size-7 items-center justify-center">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</div>
+</div>
+</a>
+</div>
+<!-- Settings Section: Seguridad -->
+<div class="px-4 pt-6 pb-2">
+<h3 class="text-slate-500 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider">Seguridad</h3>
+</div>
+<div class="flex flex-col mx-4 bg-slate-100 dark:bg-slate-900/50 rounded-lg overflow-hidden">
+<a class="flex items-center gap-4 px-4 min-h-14 justify-between hover:bg-slate-200/60 dark:hover:bg-slate-800/60 transition-colors duration-150" href="#">
+<div class="flex items-center gap-4">
+<div class="text-primary flex items-center justify-center shrink-0 size-10">
+<span class="material-symbols-outlined">password</span>
+</div>
+<p class="text-slate-800 dark:text-slate-200 text-base font-medium leading-normal flex-1 truncate">Cambiar Contraseña</p>
+</div>
+<div class="shrink-0">
+<div class="text-slate-400 dark:text-slate-500 flex size-7 items-center justify-center">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</div>
+</div>
+</a>
+<div class="h-px bg-slate-200 dark:bg-slate-800 ml-16"></div>
+<div class="flex items-center gap-4 px-4 min-h-14 justify-between">
+<div class="flex items-center gap-4">
+<div class="text-primary flex items-center justify-center shrink-0 size-10">
+<span class="material-symbols-outlined">face</span>
+</div>
+<p class="text-slate-800 dark:text-slate-200 text-base font-medium leading-normal flex-1 truncate">Activar Face ID</p>
+</div>
+<div class="shrink-0">
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer checked:right-0 checked:border-primary peer" id="toggle-faceid" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-slate-300 dark:bg-slate-700 cursor-pointer peer-checked:bg-primary" for="toggle-faceid"></label>
+</div>
+</div>
+</div>
+<div class="h-px bg-slate-200 dark:bg-slate-800 ml-16"></div>
+<a class="flex items-center gap-4 px-4 min-h-14 justify-between hover:bg-slate-200/60 dark:hover:bg-slate-800/60 transition-colors duration-150" href="#">
+<div class="flex items-center gap-4">
+<div class="text-primary flex items-center justify-center shrink-0 size-10">
+<span class="material-symbols-outlined">link</span>
+</div>
+<p class="text-slate-800 dark:text-slate-200 text-base font-medium leading-normal flex-1 truncate">Cuentas Vinculadas</p>
+</div>
+<div class="shrink-0">
+<div class="text-slate-400 dark:text-slate-500 flex size-7 items-center justify-center">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</div>
+</div>
+</a>
+</div>
+<!-- Log Out Button -->
+<div class="p-4 mt-6 mb-4">
+<button class="flex min-w-[84px] w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-4 bg-red-500/10 dark:bg-red-500/20 text-red-600 dark:text-red-400 text-base font-bold leading-normal tracking-[0.015em] hover:bg-red-500/20 dark:hover:bg-red-500/30 transition-colors duration-150">
+<span class="truncate">Cerrar Sesión</span>
+</button>
+</div>
+</div>
+</body></html>

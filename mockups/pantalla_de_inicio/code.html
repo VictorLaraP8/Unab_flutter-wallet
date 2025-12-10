@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pantalla de Inicio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+    </style>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1745cf",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111521",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-dark font-display">
+<div class="relative mx-auto flex h-auto min-h-screen w-full max-w-md flex-col overflow-x-hidden bg-background-dark dark group/design-root">
+<!-- Top App Bar -->
+<header class="flex items-center bg-background-dark p-4 pb-2 justify-between sticky top-0 z-10">
+<div class="flex items-center gap-3">
+<div class="flex size-12 shrink-0 items-center">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" data-alt="Semi-realistic avatar of a woman with brown hair" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBv1vT9sb78VY6d2bavkeNWXZOoiLaTZsW92aAeGQJ-ogVlhf5ywGZkuPCBKSIb8BCQQONvrjOLoy_1JkvS4mYrZXdl_ukureU7HiHtRU7h3uF8mZsxDw-z1Au3l1juW4u8V_5JMAhj6KqW-_u952FLkbv2pQwmbty_wuEYpA2GZ0sIgXB1KQiy1B87zvSSchDHJAWNgxnDtKpMaJ3mCTsPWePp2yBPZkC3KpEb5wcaQlhiMXGmSPgTTAXwTj59SNwZ27bZla9iCSuh");'></div>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">Hola, Ana</h2>
+</div>
+<div class="flex w-12 items-center justify-end">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 w-12 bg-transparent text-white gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0">
+<span class="material-symbols-outlined text-white text-2xl">notifications</span>
+</button>
+</div>
+</header>
+<main class="flex flex-col flex-1 px-4 pb-24">
+<!-- Balance Card -->
+<div class="flex flex-col items-stretch justify-start rounded-lg bg-[#1a2032] p-4 mt-4">
+<p class="text-[#93a0c8] text-sm font-normal leading-normal">Balance Total</p>
+<div class="flex items-center gap-3 justify-start py-1">
+<p class="text-white tracking-light text-[32px] font-bold leading-tight truncate">$1,234.56</p>
+<button class="text-[#93a0c8]"><span class="material-symbols-outlined">visibility_off</span></button>
+</div>
+</div>
+<!-- Button Group -->
+<div class="flex justify-stretch py-4">
+<div class="flex flex-1 gap-3 flex-wrap justify-between">
+<button class="flex flex-1 min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] gap-2">
+<span class="material-symbols-outlined">add</span>
+<span class="truncate">Agregar Gasto</span>
+</button>
+<button class="flex flex-1 min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-[#242d47] text-white text-base font-bold leading-normal tracking-[0.015em] gap-2">
+<span class="material-symbols-outlined">add</span>
+<span class="truncate">Agregar Ingreso</span>
+</button>
+</div>
+</div>
+<!-- Spending Chart Card -->
+<div class="flex flex-col gap-4 rounded-lg bg-[#1a2032] p-4">
+<div class="flex justify-between items-center">
+<p class="text-white text-base font-medium leading-normal">Gastos del Mes</p>
+<a class="text-primary text-sm font-bold leading-normal" href="#">Ver Detalles</a>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative flex size-24 items-center justify-center">
+<svg class="size-full -rotate-90 transform" viewbox="0 0 36 36">
+<circle class="stroke-[#242d47]" cx="18" cy="18" fill="none" r="16" stroke-width="3"></circle>
+<circle class="stroke-primary" cx="18" cy="18" fill="none" r="16" stroke-dasharray="75, 100" stroke-linecap="round" stroke-width="3"></circle>
+</svg>
+<span class="absolute text-white text-lg font-bold">75%</span>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-white tracking-light text-2xl font-bold leading-tight truncate">$450.75</p>
+<p class="text-[#93a0c8] text-sm font-normal leading-normal">de tu presupuesto de $600</p>
+</div>
+</div>
+</div>
+<!-- Section Header -->
+<div class="flex justify-between items-center pt-6 pb-2">
+<h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">Actividad Reciente</h3>
+<a class="text-primary text-sm font-bold leading-normal" href="#">Ver Todo</a>
+</div>
+<!-- Recent Transactions List -->
+<div class="flex flex-col gap-3">
+<!-- Transaction Item 1 -->
+<div class="flex items-center gap-4 rounded-lg bg-[#1a2032] p-3">
+<div class="flex size-10 shrink-0 items-center justify-center rounded-full bg-[#242d47]">
+<span class="material-symbols-outlined text-primary">shopping_bag</span>
+</div>
+<div class="flex flex-1 flex-col">
+<p class="text-white text-base font-medium leading-normal">Supermercado</p>
+<p class="text-[#93a0c8] text-sm font-normal leading-normal">Hoy</p>
+</div>
+<p class="text-white text-base font-bold leading-normal">-$75.50</p>
+</div>
+<!-- Transaction Item 2 -->
+<div class="flex items-center gap-4 rounded-lg bg-[#1a2032] p-3">
+<div class="flex size-10 shrink-0 items-center justify-center rounded-full bg-[#242d47]">
+<span class="material-symbols-outlined text-primary">receipt_long</span>
+</div>
+<div class="flex flex-1 flex-col">
+<p class="text-white text-base font-medium leading-normal">Salario</p>
+<p class="text-[#93a0c8] text-sm font-normal leading-normal">Ayer</p>
+</div>
+<p class="text-green-400 text-base font-bold leading-normal">+$1,500.00</p>
+</div>
+<!-- Transaction Item 3 -->
+<div class="flex items-center gap-4 rounded-lg bg-[#1a2032] p-3">
+<div class="flex size-10 shrink-0 items-center justify-center rounded-full bg-[#242d47]">
+<span class="material-symbols-outlined text-primary">local_cafe</span>
+</div>
+<div class="flex flex-1 flex-col">
+<p class="text-white text-base font-medium leading-normal">Starbucks</p>
+<p class="text-[#93a0c8] text-sm font-normal leading-normal">23 de Julio</p>
+</div>
+<p class="text-white text-base font-bold leading-normal">-$5.50</p>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 mx-auto max-w-md border-t border-t-[#242d47] bg-background-dark/80 backdrop-blur-sm">
+<div class="flex h-20 items-center justify-around px-2">
+<a class="flex flex-col items-center justify-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="text-xs font-bold">Inicio</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-[#93a0c8]" href="#">
+<span class="material-symbols-outlined text-2xl">swap_horiz</span>
+<span class="text-xs font-medium">Transacciones</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-[#93a0c8]" href="#">
+<span class="material-symbols-outlined text-2xl">pie_chart</span>
+<span class="text-xs font-medium">Presupuestos</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-[#93a0c8]" href="#">
+<span class="material-symbols-outlined text-2xl">person</span>
+<span class="text-xs font-medium">Perfil</span>
+</a>
+</div>
+</nav>
+</div>
+</body></html>

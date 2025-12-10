@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Registro de Transacción</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-size: 24px;
+        }
+        .chip-active {
+            background-color: #1152d4;
+            color: #ffffff;
+        }
+        .chip-active .material-symbols-outlined {
+            color: #ffffff;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col">
+<!-- Top App Bar -->
+<div class="flex items-center bg-background-light dark:bg-background-dark p-4 pb-2 justify-between sticky top-0 z-10">
+<div class="flex size-12 shrink-0 items-center justify-start">
+<span class="material-symbols-outlined text-gray-800 dark:text-white">arrow_back_ios_new</span>
+</div>
+<h2 class="text-gray-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Registrar Transacción</h2>
+<div class="flex w-12 items-center justify-end">
+</div>
+</div>
+<!-- Main Content -->
+<main class="flex-grow px-4">
+<!-- Segmented Buttons -->
+<div class="flex py-3">
+<div class="flex h-10 flex-1 items-center justify-center rounded-lg bg-gray-200 dark:bg-gray-800/50 p-1">
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-lg px-2 has-[:checked]:bg-primary has-[:checked]:shadow-[0_0_4px_rgba(0,0,0,0.1)] has-[:checked]:text-white text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal">
+<span class="truncate">Gasto</span>
+<input checked="" class="invisible w-0" name="transaction-type" type="radio" value="Gasto"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-lg px-2 has-[:checked]:bg-primary has-[:checked]:shadow-[0_0_4px_rgba(0,0,0,0.1)] has-[:checked]:text-white text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal">
+<span class="truncate">Ingreso</span>
+<input class="invisible w-0" name="transaction-type" type="radio" value="Ingreso"/>
+</label>
+</div>
+</div>
+<!-- Headline Text (Amount Input) -->
+<div class="relative">
+<h1 class="text-gray-900 dark:text-white tracking-light text-5xl font-bold leading-tight text-center pb-3 pt-6">$0.00</h1>
+</div>
+<!-- Category Section -->
+<h3 class="text-gray-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] pb-2 pt-6">Categoría</h3>
+<!-- Chips (Category Selector) -->
+<div class="flex gap-3 overflow-x-auto pb-3 -mx-4 px-4" style="scrollbar-width: none; -ms-overflow-style: none;">
+<style>
+                    .flex::-webkit-scrollbar { display: none; }
+                </style>
+<div class="flex h-10 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-lg bg-gray-200 dark:bg-gray-800/50 pl-3 pr-4 chip-active">
+<span class="material-symbols-outlined">restaurant</span>
+<p class="text-sm font-medium leading-normal">Comida</p>
+</div>
+<div class="flex h-10 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-lg bg-gray-200 dark:bg-gray-800/50 pl-3 pr-4 text-gray-800 dark:text-gray-300">
+<span class="material-symbols-outlined">directions_bus</span>
+<p class="text-sm font-medium leading-normal">Transporte</p>
+</div>
+<div class="flex h-10 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-lg bg-gray-200 dark:bg-gray-800/50 pl-3 pr-4 text-gray-800 dark:text-gray-300">
+<span class="material-symbols-outlined">shopping_bag</span>
+<p class="text-sm font-medium leading-normal">Compras</p>
+</div>
+<div class="flex h-10 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-lg bg-gray-200 dark:bg-gray-800/50 pl-3 pr-4 text-gray-800 dark:text-gray-300">
+<span class="material-symbols-outlined">cottage</span>
+<p class="text-sm font-medium leading-normal">Hogar</p>
+</div>
+<div class="flex h-10 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-lg bg-gray-200 dark:bg-gray-800/50 pl-3 pr-4 text-gray-800 dark:text-gray-300">
+<span class="material-symbols-outlined">sports_esports</span>
+<p class="text-sm font-medium leading-normal">Entretenimiento</p>
+</div>
+<div class="flex h-10 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-lg bg-gray-200 dark:bg-gray-800/50 pl-3 pr-4 text-gray-800 dark:text-gray-300">
+<span class="material-symbols-outlined">add_circle</span>
+<p class="text-sm font-medium leading-normal">Otros</p>
+</div>
+</div>
+<!-- Form Fields -->
+<div class="space-y-4 pt-4">
+<!-- Date Field -->
+<div>
+<label class="text-gray-600 dark:text-gray-400 text-sm font-medium mb-2 block" for="date">Fecha</label>
+<div class="relative">
+<input class="w-full h-12 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-800/50 px-4 text-gray-900 dark:text-white placeholder:text-gray-500 focus:border-primary focus:ring-primary focus:ring-2" id="date" readonly="" type="text" value="Hoy, 24 de Julio 2024"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">calendar_today</span>
+</div>
+</div>
+<!-- Description Field -->
+<div>
+<label class="text-gray-600 dark:text-gray-400 text-sm font-medium mb-2 block" for="description">Descripción</label>
+<textarea class="w-full h-24 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-800/50 p-4 text-gray-900 dark:text-white placeholder:text-gray-500 focus:border-primary focus:ring-primary focus:ring-2" id="description" placeholder="Añade una nota..."></textarea>
+</div>
+</div>
+</main>
+<!-- CTA Button -->
+<div class="sticky bottom-0 bg-background-light dark:bg-background-dark p-4 pt-2">
+<button class="w-full flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 bg-primary text-white gap-2 text-base font-bold leading-normal tracking-[0.015em]">Guardar Transacción</button>
+</div>
+</div>
+</body></html>
