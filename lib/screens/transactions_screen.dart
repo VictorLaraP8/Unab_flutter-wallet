@@ -97,8 +97,9 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                     final filteredTransactions = allTransactions.where((t) {
                       final type = t['type'] ?? 'expense';
                       if (_selectedFilter == 'Todos') return true;
-                      if (_selectedFilter == 'Ingresos')
+                      if (_selectedFilter == 'Ingresos') {
                         return type == 'income';
+                      }
                       if (_selectedFilter == 'Gastos') return type == 'expense';
                       return true;
                     }).toList();

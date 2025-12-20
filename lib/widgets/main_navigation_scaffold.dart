@@ -27,7 +27,7 @@ class _MainNavigationScaffoldState extends State<MainNavigationScaffold> {
       HomeScreen(userId: widget.userId, userName: widget.userName),
       TransactionsScreen(userId: widget.userId),
       const BudgetsScreen(),
-      SettingsScreen(userName: widget.userName),
+      SettingsScreen(userName: widget.userName, userId: widget.userId),
     ];
   }
 

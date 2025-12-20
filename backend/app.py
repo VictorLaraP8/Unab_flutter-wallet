@@ -80,6 +80,25 @@ def login():
     else:
         return jsonify({'error': 'Invalid credentials'}), 401
 
+@app.route('/api/change-password', methods=['POST'])
+def change_password():
+    data = request.get_json()
+    user_id = data.get('user_id')
+    old_password = data.get('old_password')
+    new_password = data.get('new_password')
+
+    if not user_id or not old_password or not new_password:
+        return jsonify({'error': 'Missing required fields'}), 400
+
+    user = User.query.get(user_id)
+
+    if user and user.check_password(old_password):
+        user.set_password(new_password)
+        db.session.commit()
+        return jsonify({'message': 'Password changed successfully'}), 200
+    else:
+        return jsonify({'error': 'Invalid current password'}), 401
+
 @app.route('/api/products', methods=['GET'])
 def get_products():
     user_id = request.args.get('user_id')

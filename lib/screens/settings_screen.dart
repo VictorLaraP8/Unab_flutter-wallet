@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 import 'login_screen.dart';
+import 'change_password_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   final String? userName;
   final String? userEmail;
+  final int? userId;
 
-  const SettingsScreen({super.key, this.userName, this.userEmail});
+  const SettingsScreen({super.key, this.userName, this.userEmail, this.userId});
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +41,16 @@ class SettingsScreen extends StatelessWidget {
                           color: AppTheme.primaryColor,
                           width: 3,
                         ),
-                        image: const DecorationImage(
-                          image: NetworkImage(
-                            'https://lh3.googleusercontent.com/aida-public/AB6AXuAZ8uu6mSmKmKwm9M9t9C8x7VQ6KxULfpoBJz4psbC5_xdZmzKJRzJTxp8BRonoGA3yVLcl4N1OWKeji3mh5YFCZzSp8Wb5Z1cBZ3xGfJ7iTRdeaisOeljvcrGXPF4zw5wJmc7riTtHZ-XydsvRbuPuwQDjWEGWKhxxhK67JcmJLRBy5s38qg-9bXVLK88BgLrnIcnGzLVDYWzIKlMFvUKLBtNvVcmgmE_3BqHD5DvnxxInKqPmSqJFfBiIU37g_FqtpLfyxtnOAZpX',
-                          ),
-                          fit: BoxFit.cover,
+                        gradient: LinearGradient(
+                          colors: [
+                            AppTheme.primaryColor.withValues(alpha: 0.8),
+                            AppTheme.primaryColor.withValues(alpha: 0.4),
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
                         ),
                       ),
+                      child: Icon(Icons.person, size: 50, color: Colors.white),
                     ),
                     const SizedBox(height: 16),
                     Text(
@@ -95,7 +100,17 @@ class SettingsScreen extends StatelessWidget {
               _buildSettingsTile(
                 icon: Icons.lock_outline,
                 title: 'Cambiar Contraseña',
-                onTap: () {},
+                onTap: () {
+                  if (userId != null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            ChangePasswordScreen(userId: userId!),
+                      ),
+                    );
+                  }
+                },
               ),
               _buildSettingsTile(
                 icon: Icons.fingerprint,

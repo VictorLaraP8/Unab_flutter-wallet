@@ -118,4 +118,33 @@ class ApiService {
       throw Exception('Failed to connect to server: $e');
     }
   }
+
+  static Future<Map<String, dynamic>> changePassword(
+    int userId,
+    String oldPassword,
+    String newPassword,
+  ) async {
+    final url = Uri.parse('$baseUrl/change-password');
+    try {
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'user_id': userId,
+          'old_password': oldPassword,
+          'new_password': newPassword,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else {
+        throw Exception(
+          jsonDecode(response.body)['error'] ?? 'Failed to change password',
+        );
+      }
+    } catch (e) {
+      throw Exception('Failed to connect to server: $e');
+    }
+  }
 }

@@ -97,7 +97,7 @@ class _BudgetsScreenState extends State<BudgetsScreen> {
               if (name.isNotEmpty) {
                 setState(() {
                   if (isEditing && index != null) {
-                    _categories[index!] = _CategoryModel(
+                    _categories[index] = _CategoryModel(
                       name: name,
                       spent: spent,
                       limit: limit,

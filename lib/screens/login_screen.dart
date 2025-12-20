@@ -227,13 +227,11 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             // Avatar Image
             Container(
-              width: 128,
-              height: 128,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: AppTheme.backgroundDark, width: 4),
-                image: const DecorationImage(
-                  image: AssetImage('assets/logo.png'),
+              width: 180,
+              height: 180,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('wallet_logo.png'),
                   fit: BoxFit.contain,
                 ),
               ),
