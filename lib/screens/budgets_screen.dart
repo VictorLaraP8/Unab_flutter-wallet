@@ -54,21 +54,25 @@ class _BudgetsScreenState extends State<BudgetsScreen> {
   void _showAddEditDialog({_CategoryModel? category, int? index}) {
     final isEditing = category != null;
     final nameController = TextEditingController(text: category?.name ?? '');
-    final spentController =
-        TextEditingController(text: category?.spent.toString() ?? '0');
-    final limitController =
-        TextEditingController(text: category?.limit.toString() ?? '0');
-    
+    final spentController = TextEditingController(
+      text: category?.spent.toString() ?? '0',
+    );
+    final limitController = TextEditingController(
+      text: category?.limit.toString() ?? '0',
+    );
+
     // Preserve existing properties or set defaults
-    String currentIcon = category?.icon ?? '✨'; 
+    String currentIcon = category?.icon ?? '✨';
     Color currentColor = category?.color ?? const Color(0xFF6366F1);
 
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: const Color(0xFF1C1E2F),
-        title: Text(isEditing ? 'Editar Categoría' : 'Nueva Categoría',
-            style: const TextStyle(color: Colors.white)),
+        title: Text(
+          isEditing ? 'Editar Categoría' : 'Nueva Categoría',
+          style: const TextStyle(color: Colors.white),
+        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -101,13 +105,15 @@ class _BudgetsScreenState extends State<BudgetsScreen> {
                       color: currentColor,
                     );
                   } else {
-                    _categories.add(_CategoryModel(
-                      name: name,
-                      spent: spent,
-                      limit: limit,
-                      icon: '📦', // Default icon for new ones
-                      color: const Color(0xFF818CF8), // Default color
-                    ));
+                    _categories.add(
+                      _CategoryModel(
+                        name: name,
+                        spent: spent,
+                        limit: limit,
+                        icon: '📦', // Default icon for new ones
+                        color: const Color(0xFF818CF8), // Default color
+                      ),
+                    );
                   }
                 });
                 Navigator.pop(context);
@@ -120,8 +126,11 @@ class _BudgetsScreenState extends State<BudgetsScreen> {
     );
   }
 
-  Widget _buildDialogInput(TextEditingController controller, String hint,
-      {bool isNumber = false}) {
+  Widget _buildDialogInput(
+    TextEditingController controller,
+    String hint, {
+    bool isNumber = false,
+  }) {
     return Container(
       decoration: BoxDecoration(
         color: const Color(0xFF0F121C),
@@ -136,7 +145,10 @@ class _BudgetsScreenState extends State<BudgetsScreen> {
           hintText: hint,
           hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.5)),
           border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 12,
+          ),
         ),
       ),
     );
@@ -163,9 +175,9 @@ class _BudgetsScreenState extends State<BudgetsScreen> {
               const SizedBox(height: 4),
               Text(
                 'Controla tus gastos mensuales',
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: AppTheme.textSecondary,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyMedium?.copyWith(color: AppTheme.textSecondary),
               ),
               const SizedBox(height: 32),
               const _BudgetSummaryCard(),
@@ -196,7 +208,8 @@ class _BudgetsScreenState extends State<BudgetsScreen> {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 16.0),
                   child: GestureDetector(
-                    onTap: () => _showAddEditDialog(category: category, index: index),
+                    onTap: () =>
+                        _showAddEditDialog(category: category, index: index),
                     child: _CategoryItem(
                       icon: category.icon,
                       name: category.name,
@@ -245,7 +258,10 @@ class _BudgetSummaryCard extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0xFF1C2230),
                   borderRadius: BorderRadius.circular(20),
@@ -301,14 +317,15 @@ class _BudgetSummaryCard extends StatelessWidget {
                     isStrokeCapRound: true,
                     dotData: FlDotData(
                       show: true,
-                      checkToShowDot: (spot, barData) => spot.x == 4, // Show dot at x=4
+                      checkToShowDot: (spot, barData) =>
+                          spot.x == 4, // Show dot at x=4
                       getDotPainter: (spot, percent, barData, index) =>
                           FlDotCirclePainter(
-                        radius: 5,
-                        color: Colors.white,
-                        strokeWidth: 3,
-                        strokeColor: const Color(0xFF6366F1),
-                      ),
+                            radius: 5,
+                            color: Colors.white,
+                            strokeWidth: 3,
+                            strokeColor: const Color(0xFF6366F1),
+                          ),
                     ),
                     belowBarData: BarAreaData(
                       show: true,
@@ -411,10 +428,7 @@ class _CategoryItem extends StatelessWidget {
                       color: const Color(0xFF1C2230),
                       borderRadius: BorderRadius.circular(16),
                     ),
-                    child: Text(
-                      icon,
-                      style: const TextStyle(fontSize: 24),
-                    ),
+                    child: Text(icon, style: const TextStyle(fontSize: 24)),
                   ),
                   const SizedBox(width: 16),
                   Column(
@@ -496,17 +510,11 @@ class _CategoryItem extends StatelessWidget {
             children: [
               Text(
                 '$percentageInt% utilizado',
-                style: TextStyle(
-                  color: AppTheme.textSecondary,
-                  fontSize: 14,
-                ),
+                style: TextStyle(color: AppTheme.textSecondary, fontSize: 14),
               ),
               Text(
                 'Límite: \$${limit.toInt()}',
-                style: TextStyle(
-                  color: AppTheme.textSecondary,
-                  fontSize: 14,
-                ),
+                style: TextStyle(color: AppTheme.textSecondary, fontSize: 14),
               ),
             ],
           ),
