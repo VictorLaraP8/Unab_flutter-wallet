@@ -39,6 +39,14 @@ class Product(db.Model):
     type = db.Column(db.String(20), nullable=False, default='expense')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True) # Linked to User
 
+class Budget(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    monthly_budget = db.Column(db.Float, nullable=False, default=0.0)
+    month = db.Column(db.Integer, nullable=False)  # 1-12
+    year = db.Column(db.Integer, nullable=False)
+    created_at = db.Column(db.String(50))
+
 # --- Routes ---
 
 @app.route('/api/register', methods=['POST'])
@@ -135,6 +143,81 @@ def add_product():
     db.session.commit()
 
     return jsonify({'message': 'Product added'}), 201
+
+@app.route('/api/budget', methods=['GET'])
+def get_budget():
+    user_id = request.args.get('user_id')
+    if not user_id:
+        return jsonify({'error': 'user_id required'}), 400
+    
+    from datetime import datetime
+    now = datetime.now()
+    current_month = now.month
+    current_year = now.year
+    
+    # Get budget for current month/year
+    budget = Budget.query.filter_by(
+        user_id=user_id,
+        month=current_month,
+        year=current_year
+    ).first()
+    
+    if budget:
+        return jsonify({
+            'id': budget.id,
+            'user_id': budget.user_id,
+            'monthly_budget': budget.monthly_budget,
+            'month': budget.month,
+            'year': budget.year
+        }), 200
+    else:
+        # Return default budget if none exists
+        return jsonify({
+            'id': None,
+            'user_id': int(user_id),
+            'monthly_budget': 800.0,  # Default
+            'month': current_month,
+            'year': current_year
+        }), 200
+
+@app.route('/api/budget', methods=['POST'])
+def create_or_update_budget():
+    data = request.get_json()
+    user_id = data.get('user_id')
+    monthly_budget = data.get('monthly_budget')
+    
+    if not user_id or monthly_budget is None:
+        return jsonify({'error': 'user_id and monthly_budget required'}), 400
+    
+    from datetime import datetime
+    now = datetime.now()
+    current_month = now.month
+    current_year = now.year
+    
+    # Check if budget exists for this month/year
+    budget = Budget.query.filter_by(
+        user_id=user_id,
+        month=current_month,
+        year=current_year
+    ).first()
+    
+    if budget:
+        # Update existing
+        budget.monthly_budget = monthly_budget
+        db.session.commit()
+        return jsonify({'message': 'Budget updated', 'id': budget.id}), 200
+    else:
+        # Create new
+        new_budget = Budget(
+            user_id=user_id,
+            monthly_budget=monthly_budget,
+            month=current_month,
+            year=current_year,
+            created_at=now.isoformat()
+        )
+        db.session.add(new_budget)
+        db.session.commit()
+        return jsonify({'message': 'Budget created', 'id': new_budget.id}), 201
 
 # --- Init DB ---
 with app.app_context():

@@ -147,4 +147,41 @@ class ApiService {
       throw Exception('Failed to connect to server: $e');
     }
   }
+
+  static Future<Map<String, dynamic>> getBudget(int userId) async {
+    final url = Uri.parse('$baseUrl/budget?user_id=$userId');
+    try {
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else {
+        throw Exception('Failed to load budget');
+      }
+    } catch (e) {
+      throw Exception('Failed to connect to server: $e');
+    }
+  }
+
+  static Future<Map<String, dynamic>> updateBudget(
+    int userId,
+    double monthlyBudget,
+  ) async {
+    final url = Uri.parse('$baseUrl/budget');
+    try {
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'user_id': userId, 'monthly_budget': monthlyBudget}),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return jsonDecode(response.body);
+      } else {
+        throw Exception('Failed to update budget');
+      }
+    } catch (e) {
+      throw Exception('Failed to connect to server: $e');
+    }
+  }
 }

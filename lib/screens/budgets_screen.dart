@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
+import '../services/api_service.dart';
 
 class BudgetsScreen extends StatefulWidget {
   const BudgetsScreen({super.key});
@@ -180,7 +181,7 @@ class _BudgetsScreenState extends State<BudgetsScreen> {
                 ).textTheme.bodyMedium?.copyWith(color: AppTheme.textSecondary),
               ),
               const SizedBox(height: 32),
-              const _BudgetSummaryCard(),
+              _BudgetSummaryCard(categories: _categories),
               const SizedBox(height: 32),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -230,11 +231,155 @@ class _BudgetsScreenState extends State<BudgetsScreen> {
   }
 }
 
-class _BudgetSummaryCard extends StatelessWidget {
-  const _BudgetSummaryCard();
+class _BudgetSummaryCard extends StatefulWidget {
+  final List<_CategoryModel> categories;
+
+  const _BudgetSummaryCard({required this.categories});
+
+  @override
+  State<_BudgetSummaryCard> createState() => _BudgetSummaryCardState();
+}
+
+class _BudgetSummaryCardState extends State<_BudgetSummaryCard> {
+  double _totalBudget = 800.0;
+  int? _userId;
+  int _touchedIndex = -1;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadBudget();
+  }
+
+  Future<void> _loadBudget() async {
+    try {
+      // Get user ID from shared preferences or session
+      // For now, using a placeholder - you should get this from your auth state
+      final userId = 1; // TODO: Get from auth state
+      _userId = userId;
+
+      final budgetData = await ApiService.getBudget(userId);
+      setState(() {
+        _totalBudget = (budgetData['monthly_budget'] as num).toDouble();
+      });
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Error loading budget: $e')));
+      }
+    }
+  }
+
+  void _showEditBudgetDialog() {
+    final controller = TextEditingController(
+      text: _totalBudget.toStringAsFixed(0),
+    );
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: const Color(0xFF1C1E2F),
+        title: const Text(
+          'Editar Presupuesto Mensual',
+          style: TextStyle(color: Colors.white),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Ingresa tu presupuesto total para este mes',
+              style: TextStyle(color: AppTheme.textSecondary, fontSize: 14),
+            ),
+            const SizedBox(height: 16),
+            Container(
+              decoration: BoxDecoration(
+                color: const Color(0xFF0F121C),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.white12),
+              ),
+              child: TextField(
+                controller: controller,
+                keyboardType: TextInputType.number,
+                style: const TextStyle(color: Colors.white, fontSize: 18),
+                decoration: InputDecoration(
+                  hintText: 'Ej: 1000',
+                  hintStyle: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.5),
+                  ),
+                  prefixText: '\$ ',
+                  prefixStyle: const TextStyle(
+                    color: Color(0xFF818CF8),
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  border: InputBorder.none,
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancelar'),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              final value = double.tryParse(controller.text);
+              if (value != null && value > 0) {
+                try {
+                  await ApiService.updateBudget(_userId ?? 1, value);
+                  setState(() {
+                    _totalBudget = value;
+                  });
+                  if (mounted) {
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Presupuesto actualizado'),
+                        backgroundColor: Color(0xFF10B981),
+                      ),
+                    );
+                  }
+                } catch (e) {
+                  if (mounted) {
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text('Error: $e')));
+                  }
+                }
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Por favor ingresa un valor válido'),
+                  ),
+                );
+              }
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF818CF8),
+            ),
+            child: const Text('Guardar'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  double get _totalSpent {
+    return widget.categories.fold(0.0, (sum, category) => sum + category.spent);
+  }
 
   @override
   Widget build(BuildContext context) {
+    final totalSpent = _totalSpent;
+
     return Container(
       decoration: BoxDecoration(
         color: const Color(0xFF0F121C), // Dark card background
@@ -278,9 +423,9 @@ class _BudgetSummaryCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          const Text(
-            '\$559',
-            style: TextStyle(
+          Text(
+            '\$${totalSpent.toInt()}',
+            style: const TextStyle(
               fontSize: 40,
               fontWeight: FontWeight.bold,
               color: Colors.white,
@@ -298,6 +443,40 @@ class _BudgetSummaryCard extends StatelessWidget {
                 maxX: 6,
                 minY: 0,
                 maxY: 6,
+                lineTouchData: LineTouchData(
+                  enabled: true,
+                  touchTooltipData: LineTouchTooltipData(
+                    getTooltipColor: (touchedSpot) => const Color(0xFF1C1E2F),
+                    tooltipPadding: const EdgeInsets.all(8),
+                    getTooltipItems: (List<LineBarSpot> touchedSpots) {
+                      return touchedSpots.map((LineBarSpot touchedSpot) {
+                        return LineTooltipItem(
+                          '\$${(touchedSpot.y * 100).toInt()}',
+                          const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        );
+                      }).toList();
+                    },
+                  ),
+                  touchCallback:
+                      (FlTouchEvent event, LineTouchResponse? touchResponse) {
+                        if (touchResponse == null ||
+                            touchResponse.lineBarSpots == null) {
+                          setState(() {
+                            _touchedIndex = -1;
+                          });
+                          return;
+                        }
+                        setState(() {
+                          _touchedIndex =
+                              touchResponse.lineBarSpots!.first.spotIndex;
+                        });
+                      },
+                  handleBuiltInTouches: true,
+                ),
                 lineBarsData: [
                   LineChartBarData(
                     spots: const [
@@ -317,15 +496,19 @@ class _BudgetSummaryCard extends StatelessWidget {
                     isStrokeCapRound: true,
                     dotData: FlDotData(
                       show: true,
-                      checkToShowDot: (spot, barData) =>
-                          spot.x == 4, // Show dot at x=4
-                      getDotPainter: (spot, percent, barData, index) =>
-                          FlDotCirclePainter(
-                            radius: 5,
-                            color: Colors.white,
-                            strokeWidth: 3,
-                            strokeColor: const Color(0xFF6366F1),
-                          ),
+                      checkToShowDot: (spot, barData) {
+                        final index = barData.spots.indexOf(spot);
+                        return spot.x == 4 || index == _touchedIndex;
+                      },
+                      getDotPainter: (spot, percent, barData, index) {
+                        final isTouched = index == _touchedIndex;
+                        return FlDotCirclePainter(
+                          radius: isTouched ? 6 : 5,
+                          color: Colors.white,
+                          strokeWidth: isTouched ? 4 : 3,
+                          strokeColor: const Color(0xFF6366F1),
+                        );
+                      },
                     ),
                     belowBarData: BarAreaData(
                       show: true,
@@ -361,7 +544,7 @@ class _BudgetSummaryCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    'Total presupuestado: \$800',
+                    'Total presupuestado: \$${_totalBudget.toInt()}',
                     style: TextStyle(
                       color: AppTheme.textSecondary,
                       fontSize: 13,
@@ -369,12 +552,15 @@ class _BudgetSummaryCard extends StatelessWidget {
                   ),
                 ],
               ),
-              Text(
-                'Editar Plan',
-                style: TextStyle(
-                  color: const Color(0xFF818CF8),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
+              GestureDetector(
+                onTap: _showEditBudgetDialog,
+                child: Text(
+                  'Editar Plan',
+                  style: TextStyle(
+                    color: const Color(0xFF818CF8),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13,
+                  ),
                 ),
               ),
             ],
