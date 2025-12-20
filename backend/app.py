@@ -131,4 +131,4 @@ with app.app_context():
 
 if __name__ == '__main__':
     # Host 0.0.0.0 is important for Android emulator to access (via 10.0.2.2)
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5001)

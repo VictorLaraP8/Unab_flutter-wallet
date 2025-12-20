@@ -233,10 +233,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 shape: BoxShape.circle,
                 border: Border.all(color: AppTheme.backgroundDark, width: 4),
                 image: const DecorationImage(
-                  image: NetworkImage(
-                    'https://lh3.googleusercontent.com/aida-public/AB6AXuAZ8uu6mSmKmKwm9M9t9C8x7VQ6KxULfpoBJz4psbC5_xdZmzKJRzJTxp8BRonoGA3yVLcl4N1OWKeji3mh5YFCZzSp8Wb5Z1cBZ3xGfJ7iTRdeaisOeljvcrGXPF4zw5wJmc7riTtHZ-XydsvRbuPuwQDjWEGWKhxxhK67JcmJLRBy5s38qg-9bXVLK88BgLrnIcnGzLVDYWzIKlMFvUKLBtNvVcmgmE_3BqHD5DvnxxInKqPmSqJFfBiIU37g_FqtpLfyxtnOAZpX',
-                  ),
-                  fit: BoxFit.cover,
+                  image: AssetImage('assets/logo.png'),
+                  fit: BoxFit.contain,
                 ),
               ),
             ),

@@ -8,12 +8,12 @@ class ApiService {
   // Use 10.0.2.2 for Android emulator, localhost for iOS/Web/Windows
   static String get baseUrl {
     if (kIsWeb) {
-      return 'http://127.0.0.1:5000/api';
+      return 'http://127.0.0.1:5001/api';
     }
     // Check for Android specifically
     try {
       if (defaultTargetPlatform == TargetPlatform.android) {
-        return 'http://10.0.2.2:5000/api';
+        return 'http://10.0.2.2:5001/api';
       }
     } catch (e) {
       // defaultTargetPlatform might throw on some setups if not imported,
@@ -21,7 +21,7 @@ class ApiService {
       // However, defaultTargetPlatform is safe in flutter context.
     }
     // Default for iOS, Windows, macOS, Linux
-    return 'http://127.0.0.1:5000/api';
+    return 'http://127.0.0.1:5001/api';
   }
 
   static Future<Map<String, dynamic>> login(
@@ -41,8 +41,10 @@ class ApiService {
       } else {
         throw Exception(jsonDecode(response.body)['error'] ?? 'Login failed');
       }
-    } catch (e) {
+    } on http.ClientException catch (e) {
       throw Exception('Failed to connect to server: $e');
+    } catch (e) {
+      rethrow;
     }
   }
 

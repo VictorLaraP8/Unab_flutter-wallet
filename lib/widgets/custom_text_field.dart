@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomTextField extends StatefulWidget {
   final String label;
   final String placeholder;
   final IconData? prefixIcon;
@@ -20,6 +20,19 @@ class CustomTextField extends StatelessWidget {
   });
 
   @override
+  State<CustomTextField> createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  late bool _obscureText;
+
+  @override
+  void initState() {
+    super.initState();
+    _obscureText = widget.isPassword;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,33 +40,38 @@ class CustomTextField extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 4.0, bottom: 8.0),
           child: Text(
-            label,
+            widget.label,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              fontWeight: FontWeight.w600,
-              color: Colors.white70, // Slate-200 equivalent
-            ),
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white70, // Slate-200 equivalent
+                ),
           ),
         ),
         TextFormField(
-          controller: controller,
-          obscureText: isPassword,
-          keyboardType: keyboardType,
+          controller: widget.controller,
+          obscureText: _obscureText,
+          keyboardType: widget.keyboardType,
           style: const TextStyle(color: Colors.white),
           decoration: InputDecoration(
-            hintText: placeholder,
+            hintText: widget.placeholder,
             hintStyle: TextStyle(
               color: AppTheme.textSecondary.withValues(alpha: 0.7),
             ),
             filled: true,
             fillColor: AppTheme.surfaceDark, // Using surface color for input bg
-            prefixIcon: prefixIcon != null
-                ? Icon(prefixIcon, color: AppTheme.textSecondary)
+            prefixIcon: widget.prefixIcon != null
+                ? Icon(widget.prefixIcon, color: AppTheme.textSecondary)
                 : null,
-            suffixIcon: isPassword
+            suffixIcon: widget.isPassword
                 ? IconButton(
-                    icon: Icon(Icons.visibility, color: AppTheme.textSecondary),
+                    icon: Icon(
+                      _obscureText ? Icons.visibility : Icons.visibility_off,
+                      color: AppTheme.textSecondary,
+                    ),
                     onPressed: () {
-                      // TODO: Implement visibility toggle state if needed locally or via parent
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
                     },
                   )
                 : null,

@@ -3,6 +3,7 @@ import '../theme/app_theme.dart';
 import '../services/api_service.dart';
 import '../utils/currency_formatter.dart';
 import 'add_transaction_screen.dart';
+import 'budgets_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final int? userId;
@@ -90,7 +91,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       onTransactionAdded: _refreshData,
                     ),
                     const SizedBox(height: 16),
-                    _SpendingChartCard(totalSpent: totalExpense),
+                    _SpendingChartCard(
+                      totalSpent: totalExpense,
+                      userId: widget.userId,
+                    ),
                     const SizedBox(height: 24),
                     const _SectionHeader(
                       title: 'Actividad Reciente',
@@ -140,9 +144,7 @@ class _TopAppBar extends StatelessWidget {
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                  image: NetworkImage(
-                    'https://lh3.googleusercontent.com/aida-public/AB6AXuBv1vT9sb78VY6d2bavkeNWXZOoiLaTZsW92aAeGQJ-ogVlhf5ywGZkuPCBKSIb8BCQQONvrjOLoy_1JkvS4mYrZXdl_ukureU7HiHtRU7h3uF8mZsxDw-z1Au3l1juW4u8V_5JMAhj6KqW-_u952FLkbv2pQwmbty_wuEYpA2GZ0sIgXB1KQiy1B87zvSSchDHJAWNgxnDtKpMaJ3mCTsPWePp2yBPZkC3KpEb5wcaQlhiMXGmSPgTTAXwTj59SNwZ27bZla9iCSuh',
-                  ),
+                  image: AssetImage('assets/user_icon.png'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -297,7 +299,9 @@ class _ActionButtons extends StatelessWidget {
 
 class _SpendingChartCard extends StatelessWidget {
   final double totalSpent;
-  const _SpendingChartCard({required this.totalSpent});
+  final int? userId;
+
+  const _SpendingChartCard({required this.totalSpent, this.userId});
 
   @override
   Widget build(BuildContext context) {
@@ -305,76 +309,92 @@ class _SpendingChartCard extends StatelessWidget {
     const double budget = 1000.0;
     final double percentage = (totalSpent / budget).clamp(0.0, 1.0);
 
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppTheme.surfaceDark,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Gastos del Mes',
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              Text(
-                'Ver Detalles',
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: AppTheme.primaryColor,
-                  fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onTap: () {
+        if (userId != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const BudgetsScreen(),
+            ),
+          );
+        } else {
+           ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Error: No User ID')),
+          );
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: AppTheme.surfaceDark,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Gastos del Mes',
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              // Simplified Circular Chart Visualization
-              SizedBox(
-                width: 96,
-                height: 96,
-                child: Stack(
-                  alignment: Alignment.center,
+                Text(
+                  'Ver Detalles',
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: AppTheme.primaryColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                // Simplified Circular Chart Visualization
+                SizedBox(
+                  width: 96,
+                  height: 96,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      CircularProgressIndicator(
+                        value: percentage,
+                        backgroundColor: const Color(0xFF242D47),
+                        color: AppTheme.primaryColor,
+                        strokeWidth: 12,
+                      ),
+                      Text(
+                        '${(percentage * 100).toInt()}%',
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CircularProgressIndicator(
-                      value: percentage,
-                      backgroundColor: const Color(0xFF242D47),
-                      color: AppTheme.primaryColor,
-                      strokeWidth: 12,
+                    Text(
+                      CurrencyFormatter.format(totalSpent),
+                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     Text(
-                      '${(percentage * 100).toInt()}%',
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
+                      'de tu presupuesto de ${CurrencyFormatter.format(budget)}',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: AppTheme.textSecondary,
                       ),
                     ),
                   ],
                 ),
-              ),
-              const SizedBox(width: 16),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    CurrencyFormatter.format(totalSpent),
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'de tu presupuesto de ${CurrencyFormatter.format(budget)}',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: AppTheme.textSecondary,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
